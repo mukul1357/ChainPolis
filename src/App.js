@@ -287,7 +287,7 @@ class App extends Component {
         {this.state.load && <Spinner/>}
         {this.state.alert !== null ? <Alert alert={this.state.alert}/> : undefined}
         <div className="main-page" id="Background">
-          <p id="title">LandChain</p>
+          <p id="title">ChainPolis</p>
           <div className="navBar"> 
             <button type="button" className="navBarbutton" onClick={() => this.changeRoute('/', true)}>Home</button>
             {this.state.loggedIn ?<>
