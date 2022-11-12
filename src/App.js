@@ -20,6 +20,7 @@ import AllotProperty from "./components/AllotProperty";
 import Sendotp from "./components/sendOTP";
 import Receiveotp from "./components/receiveOTP";
 import SellContinue from "./components/SellContinue";
+import logo from "./img/logo.png"
 
 class App extends Component {
   state = {
@@ -170,10 +171,7 @@ class App extends Component {
 
   titleColorChange = () => {
     let text = document.getElementById("title").style;
-    if(this.state.HomePageActive === true)
-      text.backgroundColor = "white";
-    else
-      text.backgroundColor = "black";
+    text.backgroundColor = "white";
   }
 
   urlCreate = (name) => {
@@ -287,6 +285,7 @@ class App extends Component {
         {this.state.load && <Spinner/>}
         {this.state.alert !== null ? <Alert alert={this.state.alert}/> : undefined}
         <div className="main-page" id="Background">
+          <img id="logo-text" src={logo} alt ="ChainPolis"></img>
           <p id="title">ChainPolis</p>
           <div className="navBar"> 
             <button type="button" className="navBarbutton" onClick={() => this.changeRoute('/', true)}>Home</button>
@@ -294,7 +293,7 @@ class App extends Component {
             <button type="button" className="navBarbutton" onClick={() => this.changeRoute('/sell', false)}>Sell</button>
             <button type="button" className="navBarbutton" onClick={() => this.changeRoute('/sign-out', false)}>Sign Out</button></> : this.state.govLoggedIn ? <>
             <button type="button" className="navBarbutton" onClick={() => this.changeRoute('/admin/sign-out', false)}>Sign Out</button></> : <><button type="button" className="navBarbutton" onClick={() => this.changeRoute('/sign-in', false)}>User Login</button><button type="button" className="navBarbutton" onClick={() => this.changeRoute('/admin/sign-in', false)}>Admin Login</button></>}
-            <button type="button" className=" Searching btn btn-outline-success my-2 my-sm-0" id="ConnectButton" onClick={this.ConnectToWallet}><p id="connectText">{this.state.connectStatus}</p></button>
+            <button type="button" className=" Searching btn btn-outline-success my-2 my-sm-0" id="ConnectButton" onClick={this.ConnectToWallet}>{this.state.connectStatus}</button>
           </div>
             <Routes>
               <Route exact path='/' element={<Home changeRoute={this.changeRoute} state={this.state} setStateData={this.setStateData}/>}></Route>

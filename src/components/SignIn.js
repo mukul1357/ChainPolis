@@ -155,24 +155,10 @@ class SignIn extends Component {
         return (
             <div className="sign-up">
                 <div>
-                <img src={Property} id='property'></img></div>
+                {/* <img src={Property} id='property'></img> */}
+                </div>
                 <div className='signup-form'>
                 <p style={{paddingBottom: '2px'}}>Sign in to your account</p>
-                    <Card fluid centered>
-                        <Card.Content>
-                            <Form size='large'>
-                                {
-                                    this.state.alertMessage !== '' && this.state.status === 'failed' ?
-                                        <Message negative>
-                                            {this.state.alertMessage}
-                                        </Message> :
-                                        this.state.alertMessage !== '' && this.state.status === 'success' ?
-                                            <Message positive>
-                                                {this.state.alertMessage}
-                                            </Message> :
-                                            console.log('')
-                                }
-                                <Form.Field>
                                     <input
                                         required
                                         type='text'
@@ -181,8 +167,6 @@ class SignIn extends Component {
                                         autoComplete="username"
                                         onChange={e => this.setState({ username: e.target.value })}
                                     />
-                                </Form.Field>
-                                <Form.Field>
                                 <label for="password" className='labelPassword'>
                     <i className="password material-icons"></i>
                     <button
@@ -203,8 +187,6 @@ class SignIn extends Component {
                                         onChange={e => this.setState({ password: e.target.value })}
                                         minLength={8}
                                     />
-                                </Form.Field>
-                                <Form.Field>
                                 <label for="code" className='labelPassword'>
                     <i className="password material-icons"></i>
                     <button
@@ -225,16 +207,9 @@ class SignIn extends Component {
                                         onChange={e => this.setState({ digicode: e.target.value })}
                                         length={8}
                                     />
-                                </Form.Field>
-                                <Form.Field>
                                     <Button type='submit' primary fluid size='large' onClick={this.onSignIn} disabled={this.props.state.disable}>
                                         Sign in
                                     </Button>
-                                </Form.Field>
-
-                            </Form>
-                        </Card.Content>
-                    </Card>
                             <div className="signin-onUp">
                                 Don't have an account? <Link to='/sign-up'>Sign up</Link>
                             </div>
