@@ -70,6 +70,76 @@
       "artifacts": [
         "Migrations"
       ]
+    },
+    "/home/manas/ChainPolis/src/contracts/Authentication.sol": {
+      "lastModificationDate": 1668288266365,
+      "contentHash": "e29d500834ae1d863b58030e22016fca",
+      "sourceName": "contracts/Authentication.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.7"
+      ],
+      "artifacts": [
+        "Authentication"
+      ]
+    },
+    "/home/manas/ChainPolis/src/contracts/Migrations.sol": {
+      "lastModificationDate": 1668288057108,
+      "contentHash": "53ec6f49a18c8f7f756026905a115815",
+      "sourceName": "contracts/Migrations.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.8.7"
+      ],
+      "artifacts": [
+        "Migrations"
+      ]
     }
   }
 }
