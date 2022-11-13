@@ -51,8 +51,8 @@ export default class SellContinue extends Component {
             console.log(this.state.ipfsHash)
         
             this.props.alertFunc("primary", "Uploading to BlockChain")
-              await this.props.contract.methods.set_current_property_index(this.props.account, this.props.state.index).send({ from: this.props.account });
-              await this.props.contract.methods.setIPFS(this.props.account, this.state.ipfsHash).send({ from: this.props.account });
+              await this.props.contract.methods.set_current_property_index_setIPFS(this.props.account, this.props.state.index, this.state.ipfsHash).send({ from: this.props.account });
+            //   await this.props.contract.methods.setIPFS(this.props.account, this.state.ipfsHash).send({ from: this.props.account });
             this.props.setStateData('load', false);
             this.props.makeBlur(0);
             this.props.navigator("/api/receiveOTP", false);

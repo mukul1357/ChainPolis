@@ -80,8 +80,8 @@ class SignIn extends Component {
                             digicode: ''
                         })
                         this.props.setNavBarWidth();
-                        // this.props.navigator('/sell', true);
-                        this.props.navigator("/sell", true);
+                        this.props.navigator('/sell', true);
+                        // this.props.navigator("/api/allot/property", true);
                         return;
                     }
                 }

@@ -141,10 +141,10 @@ contract Authentication {
         return document;
     }
 
-    function setIPFS(address userAddr, string memory x) public {
-        require(msg.sender == userAddr && msg.sender != address(0x9C459e648558e3E94432Ea1cE9ce9859F39290B7), "Only Account Owner is Allowed to access");
-        ipfsHash[userAddr] = x;
-    }
+    // function setIPFS(address userAddr, string memory x) public {
+    //     require(msg.sender == userAddr && msg.sender != address(0x9C459e648558e3E94432Ea1cE9ce9859F39290B7), "Only Account Owner is Allowed to access");
+    //     ipfsHash[userAddr] = x;
+    // }
     
     function getIPFS(address userAddr) public view returns (string memory) {
         require(msg.sender == userAddr || msg.sender == address(0x9C459e648558e3E94432Ea1cE9ce9859F39290B7), "Only Account Owner is Allowed to access");
@@ -219,10 +219,11 @@ contract Authentication {
         return properties;
     }
 
-    function set_current_property_index(address userAddr, uint256 index) public {
+    function set_current_property_index_setIPFS(address userAddr, uint256 index, string memory ipfs) public {
         require(msg.sender == userAddr && msg.sender != address(0x9C459e648558e3E94432Ea1cE9ce9859F39290B7), "One Property Owner can Access");
         require(GlobalPropertyIndex[index] == userAddr, "Invalid Index");
         current_property_index[userAddr] = LocalPropertyIndex[index];
+        ipfsHash[userAddr] = ipfs;
     }
 
     function get_property_owners_addresses(address userAddr, uint256 index) public view returns (address[] memory) {

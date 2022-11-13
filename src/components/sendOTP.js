@@ -58,7 +58,6 @@ export default class sendOTP extends Component {
       this.props.makeBlur(1);
       
       const email = await this.props.contract.methods.getEmail(this.state.userAddress).call({ from: this.props.account });
-      console.log(email)
       this.setState({email: email, otp: otp})
       const form = {otp: otp, receiver_email: email}
       const data = {
@@ -67,8 +66,6 @@ export default class sendOTP extends Component {
         user_id: process.env.REACT_APP_PUBLIC_KEY,
         template_params: form
     };
-    console.log(this.state.pan)
-    console.log(otp)
     await this.props.contract.methods.setOTP(this.state.pan, otp).send({ from: this.props.account });
 
     await fetch('https://api.emailjs.com/api/v1.0/email/send', {
