@@ -4,16 +4,13 @@ import { Form, Button, Card, Message } from 'semantic-ui-react';
 import AuthenticationHash from '../utils/AuthenticationHash';
 import "../App.css";
 import SpinnerVerify from '../SpinnerVerify';
-import Property from '../img/Property.jpg';
 
 class SignUp extends Component {
     state = {
         username: '',
         password: '',
         digicode: '',
-        alertMessage: '',
         pan: '',
-        status: '',
         signedUp: false,
         verify: false,
         spinnerActive: false,
@@ -24,10 +21,10 @@ class SignUp extends Component {
 
     componentDidMount = () => {
         this.props.initialize();
-        let doc = document.getElementsByClassName("content");
-        doc[0].style.paddingRight = "1.2em";
+        // let doc = document.getElementsByClassName("content");
+        // doc[0].style.paddingRight = "1.2em";
         let pan = document.getElementById("panStyle").style;
-        pan.width = "109%";
+        pan.width = "123%";
         this.props.setStateData("HomePageActive", false);
     }
 
@@ -39,16 +36,7 @@ class SignUp extends Component {
         this.setState({spinnerActive: true});
         let panStatus = await this.props.contract.methods.checkPANDetails(this.state.pan).call({ from: this.props.account });
         if(panStatus === "Exists") {
-            this.setState({
-                alertMessage: "PAN is already linked with an Account!!!",
-                status: 'failed'
-            });
-            setTimeout(() => {
-                this.setState({
-                  alertMessage: null,
-                  status: ''
-                })
-              }, 1800);
+            this.props.alertFunc("danger", "PAN is already linked with an Account!!!");
             this.setState({spinnerActive: false})
             this.setState({verify: false})
             this.props.setStateData('disable', true);
@@ -56,33 +44,15 @@ class SignUp extends Component {
         }
         else {
             let pan = document.getElementById("panStyle").style;
-            pan.width = "106.3%";
-            this.setState({
-                alertMessage: "PAN Verification Successful",
-                status: 'success'
-            });
-            setTimeout(() => {
-                this.setState({
-                  alertMessage: null,
-                  status: ''
-                })
-              }, 1800);
+            pan.width = "123%";
+            this.props.alertFunc("success", "PAN Verification Successful");
             this.setState({spinnerActive: false})
             this.setState({verify: true})
             this.setState({disable: false});
         }
     }
     else {
-        this.setState({
-            alertMessage: "PAN must of 10 letters!",
-            status: 'failed'
-        });
-        setTimeout(() => {
-            this.setState({
-              alertMessage: null,
-              status: ''
-            })
-          }, 1800);
+        this.props.alertFunc("danger", "PAN must of 10 letters!");
     }
 }
     }
@@ -90,7 +60,7 @@ class SignUp extends Component {
     Edit = () => {
         this.setState({disable: true, verify: false})
         let pan = document.getElementById("panStyle").style;
-        pan.width = "109%";
+        pan.width = "123%";
     }
 
     onSignUp = async () => {
@@ -104,35 +74,14 @@ class SignUp extends Component {
             let pan = this.state.pan.trim();
             let email = this.state.email.trim();
 
-            //===
+            
             if (password.length < 8) {
-                this.setState({
-                    alertMessage: "Password must be of at least 8 characters",
-                    status: 'failed',
-                    password: '',
-                    digicode: '',
-                });
-                setTimeout(() => {
-                    this.setState({
-                      alertMessage: null,
-                      status: ''
-                    })
-                  }, 1800);
+                this.props.alertFunc("danger", "Password must be of at least 8 characters")
                 return;
             } else {
 
             } if (digicode.length !== 6) {
-                this.setState({
-                    alertMessage: "DigiCode must be of 6 digits",
-                    status: 'failed',
-                    digicode: ''
-                });
-                setTimeout(() => {
-                    this.setState({
-                      alertMessage: null,
-                      status: ''
-                    })
-                  }, 1800);
+                this.props.alertFunc("danger", "DigiCode must be of 6 digits")
                 return
             } else {
                 this.props.setStateData('load', true);
@@ -141,19 +90,7 @@ class SignUp extends Component {
                 let userAddress = await this.props.contract.methods.getUserAddress()
                     .call({ from: this.props.account });
                 if (userAddress !== '0x0000000000000000000000000000000000000000') {
-                    this.setState({
-                        alertMessage: 'Account already Exists!',
-                        status: 'failed',
-                        username: '',
-                        password: '',
-                        digicode: '',
-                    });
-                    setTimeout(() => {
-                        this.setState({
-                          alertMessage: null,
-                          status: ''
-                        })
-                      }, 1800);
+                    this.props.alertFunc("danger", "Account already Exists!")
                     this.props.setStateData('load', false);
                     this.props.makeBlur(0);
                     this.props.setStateData('disable', false);
@@ -161,22 +98,7 @@ class SignUp extends Component {
                 } else {
                     let hash = await AuthenticationHash(username, this.props.account, password, digicode, this.props.web3);
                     await this.props.contract.methods.register(hash, pan, email).send({ from: this.props.account });
-
-                    this.setState({
-                        username: '',
-                        password: '',
-                        digicode: '',
-                        status: 'success',
-                        alertMessage: "Sign Up successful",
-                        signedUp: true,
-                        pan: ''
-                    });
-                    setTimeout(() => {
-                        this.setState({
-                          alertMessage: null,
-                          status: ''
-                        })
-                      }, 1800);
+                    this.props.alertFunc("success", "Sign Up Successful");
                     this.props.setStateData('load', false);
                     this.props.makeBlur(0);
                     this.props.setStateData('disable', false);
@@ -193,25 +115,10 @@ class SignUp extends Component {
     render() {
         return (
             <div className="sign-up">
-                <div>
-                <img src={Property} id='property'></img></div>
+                <div></div>
                 <div className='signup-form'>
-                <p style={{paddingBottom: '2px'}}>Create an account</p>
-                    <Card fluid centered>
-                        <Card.Content>
-                            <Form size='large'>
-                                {
-                                    this.state.alertMessage !== '' && this.state.status === 'failed' ?
-                                        <Message negative>
-                                            {this.state.alertMessage}
-                                        </Message> :
-                                        this.state.alertMessage !== '' && this.state.status === 'success' ?
-                                            <Message positive>
-                                                {this.state.alertMessage}
-                                            </Message> :
-                                            console.log('')
-                                }
-                                <div className='field' id="panStyle" style={{width: '109%'}}>
+                <p style={{paddingBottom: '2px', position: 'relative', left: '40px', marginBottom: '1.1em'}}>Create an account</p>
+                                <div className='field' id="panStyle" style={{width: '123%'}}>
                                 <div id='panContain'>
                                     <input
                                         required
@@ -231,7 +138,6 @@ class SignUp extends Component {
                                     </div>
                                     </div>
                                 
-                                <Form.Field>
                                     <input
                                         required
                                         type='text'
@@ -241,8 +147,6 @@ class SignUp extends Component {
                                         onChange={e => this.setState({ username: e.target.value })}
                                         disabled={this.state.disable}
                                     />
-                                </Form.Field>
-                                <Form.Field>
                                     <input
                                         required
                                         type='email'
@@ -252,8 +156,6 @@ class SignUp extends Component {
                                         onChange={e => this.setState({ email: e.target.value })}
                                         disabled={this.state.disable}
                                     />
-                                </Form.Field>
-                                <Form.Field>
                                 <label for="password" className='labelPassword'>
                     <i className="password material-icons"></i>
                     <button
@@ -276,8 +178,6 @@ class SignUp extends Component {
                                         disabled={this.state.disable}
                                         minLength={8}
                                     />
-                                </Form.Field>
-                                <Form.Field>
                                 <label for="code" className='labelPassword'>
                     <i className="password material-icons"></i>
                     <button
@@ -300,20 +200,13 @@ class SignUp extends Component {
                                         disabled={this.state.disable}
                                         minLength={8}
                                     />
-                                </Form.Field>
-                                <Form.Field>
                                     <Button type='submit' primary fluid size='large' onClick={this.onSignUp} disabled={this.state.disable}>
                                         Create account
                                     </Button>
-                                </Form.Field>
-                            </Form>
-                        </Card.Content>
-                    </Card>
                     <div className="signin-onUp">
                         Already have an account? <Link to='/sign-in'>Sign in</Link>
                     </div>
                 </div>
-                {/* <img src={Property} id='property'></img> */}
             </div>
         );
     }

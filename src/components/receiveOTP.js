@@ -118,9 +118,9 @@ toggleFilledClass = (field) => {
       this.props.navigator('/sign-in', true);
     }
     return (
-      <div id='box1'>
-        <div id='box2'>
-        <p id='verifyText'>OTP Verification</p>
+      <div className='OTPCard'>
+      <div className='box1'>
+    <p className='titleContent'>OTP Verification</p>
         <p id='smallText'>Your Documents have been sent to government for verification</p>
         <p id='smallText'>An OTP will be sent to the government to your registered email address</p>
         

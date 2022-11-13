@@ -4,16 +4,13 @@ import { Form, Button, Card, Message } from 'semantic-ui-react';
 import AuthenticationHash from '../utils/AuthenticationHash';
 import "../App.css";
 import SpinnerVerify from '../SpinnerVerify';
-import Property from '../img/India.png';
 
 class AdminSignUp extends Component {
     state = {
         username: '',
         password: '',
         digicode: '',
-        alertMessage: '',
         pan: '',
-        status: '',
         signedUp: false,
         verify: false,
         spinnerActive: false,
@@ -23,8 +20,8 @@ class AdminSignUp extends Component {
 
     componentDidMount = () => {
         this.props.initialize();
-        let doc = document.getElementsByClassName("content");
-        doc[0].style.paddingRight = "1.2em";
+        // let doc = document.getElementsByClassName("content");
+        // doc[0].style.paddingRight = "1.2em";
         this.props.setStateData("HomePageActive", true);
     }
 
@@ -39,33 +36,12 @@ class AdminSignUp extends Component {
 
             //===
             if (password.length < 8) {
-                this.setState({
-                    alertMessage: "Password must be of at least 8 characters",
-                    status: 'failed',
-                    password: '',
-                    digicode: '',
-                });
-                setTimeout(() => {
-                    this.setState({
-                      alertMessage: null,
-                      status: ''
-                    })
-                  }, 1800);
+                this.props.alertFunc("danger", "Password must be of at least 8 characters")
                 return;
             } else {
 
             } if (digicode.length !== 6) {
-                this.setState({
-                    alertMessage: "DigiCode must be of 6 digits",
-                    status: 'failed',
-                    digicode: ''
-                });
-                setTimeout(() => {
-                    this.setState({
-                      alertMessage: null,
-                      status: ''
-                    })
-                  }, 1800);
+                this.props.alertFunc("danger", "DigiCode must be of 6 digits")
                 return
             } else {
                 this.props.setStateData('load', true);
@@ -75,19 +51,7 @@ class AdminSignUp extends Component {
                     .call({ from: this.props.account });
                 console.log(userAddress)
                 if (userAddress !== '0x0000000000000000000000000000000000000000') {
-                    this.setState({
-                        alertMessage: 'Account already Exists!',
-                        status: 'failed',
-                        username: '',
-                        password: '',
-                        digicode: '',
-                    });
-                    setTimeout(() => {
-                        this.setState({
-                          alertMessage: null,
-                          status: ''
-                        })
-                      }, 1800);
+                    this.props.alertFunc("danger", "Account already Exists!")
                     this.props.setStateData('load', false);
                     this.props.makeBlur(0);
                     this.props.setStateData('disable', false);
@@ -97,39 +61,12 @@ class AdminSignUp extends Component {
                         this.props.setStateData('load', false);
                         this.props.makeBlur(0);
                         this.props.setStateData('disable', false);
-                        this.setState({
-                            alertMessage: 'Invalid Wallet Address!!!',
-                            status: 'failed',
-                            username: '',
-                            password: '',
-                            digicode: '',
-                        });
-                        setTimeout(() => {
-                            this.setState({
-                              alertMessage: null,
-                              status: ''
-                            })
-                          }, 1800);
+                        this.props.alertFunc("danger", "Invalid Wallet Address!!!")
                         return;
                     }
                     let hash = await AuthenticationHash(username, this.props.account, password, digicode, this.props.web3);
                     await this.props.contract.methods.registerGov(hash).send({ from: this.props.account });
-
-                    this.setState({
-                        username: '',
-                        password: '',
-                        digicode: '',
-                        status: 'success',
-                        alertMessage: "Sign Up successful",
-                        signedUp: true,
-                        pan: ''
-                    });
-                    setTimeout(() => {
-                        this.setState({
-                          alertMessage: null,
-                          status: ''
-                        })
-                      }, 1800);
+                    this.props.alertFunc("success", "Sign Up Successful");
                     this.props.setStateData('load', false);
                     this.props.makeBlur(0);
                     this.props.setStateData('disable', false);
@@ -144,35 +81,18 @@ class AdminSignUp extends Component {
     render() {
         return (
 <div className="sign-up">
-                <div>
-                <img src={Property} id='property'></img></div>
+                <div></div>
                 <div className='signup-form'>
-                <p style={{paddingBottom: '2px'}}>Admin Sign Up</p>
-                    <Card fluid centered>
-                        <Card.Content>
-                            <Form size='large'>
-                                {
-                                    this.state.alertMessage !== '' && this.state.status === 'failed' ?
-                                        <Message negative>
-                                            {this.state.alertMessage}
-                                        </Message> :
-                                        this.state.alertMessage !== '' && this.state.status === 'success' ?
-                                            <Message positive>
-                                                {this.state.alertMessage}
-                                            </Message> :
-                                            console.log('')
-                                }
-                                <Form.Field>
+                <p style={{paddingBottom: '2px', position: 'relative', left: '40px'}}>Admin Sign Up</p>
                                     <input
                                         required
                                         type='text'
                                         placeholder='Username'
                                         value={this.state.username}
                                         autoComplete="username"
+                                        className='adminLogin'
                                         onChange={e => this.setState({ username: e.target.value })}
                                     />
-                                </Form.Field>
-                                <Form.Field>
                                 <label for="password" className='labelPassword'>
                     <i className="password material-icons"></i>
                     <button
@@ -190,11 +110,10 @@ class AdminSignUp extends Component {
                                         value={this.state.password}
                                         id='password'
                                         autoComplete="current-password"
+                                        className='adminLogin'
                                         onChange={e => this.setState({ password: e.target.value })}
                                         minLength={8}
                                     />
-                                </Form.Field>
-                                <Form.Field>
                                 <label for="code" className='labelPassword'>
                     <i className="password material-icons"></i>
                     <button
@@ -212,20 +131,14 @@ class AdminSignUp extends Component {
                                         value={this.state.digicode}
                                         id='code'
                                         autoComplete="digicode"
+                                        className='adminLogin'
                                         onChange={e => this.setState({ digicode: e.target.value })}
                                         length={8}
                                     />
-                                </Form.Field>
-                                <Form.Field>
-                                    <Button type='submit' primary fluid size='large' onClick={this.onSignUp} disabled={this.props.state.disable}>
+                                    <Button type='submit' primary fluid size='large' onClick={this.onSignUp} disabled={this.props.state.disable} style={{position: 'relative', left: '47px'}}>
                                         Sign up
                                     </Button>
-                                </Form.Field>
-
-                            </Form>
-                        </Card.Content>
-                    </Card>
-                            <div className="signin-onUp">
+                            <div className="signin-onUp adminLogin">
                                 Already have an account? <Link to='/admin/sign-in'>Sign In</Link>
                             </div>
                 </div>

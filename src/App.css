@@ -94,10 +94,10 @@ body {
 
 .signup-form {
   padding-top: 129px;
-  width: 31%;
-  margin-left: 210px;
-  margin-right: auto;
-  min-width: 400px;
+width: 31%;
+margin-left: 168px;
+margin-right: auto;
+min-width: 400px;
 }
 .signup-form input{
   width: 373px;
@@ -110,6 +110,12 @@ body {
   /* background-color: none; */
   background: none;
   border: 2px solid #7439bb;
+  margin-top: 3px;
+}
+
+.adminLogin {
+  left: 22px;
+position: relative;
 }
 
 .ui.large.fluid.primary.button {
@@ -155,6 +161,7 @@ body {
   border: none;
   background: none;
   position: absolute;
+  z-index: 200;
 }
 
 i.showPassword{
@@ -170,11 +177,13 @@ i.showPassword{
 
 .verify-forgot{
   color: red;
-  border: none;
-  background: none;
-  position: relative;
-  top: 6px;
-  padding-left: 3px;
+border: none;
+background: none;
+position: relative;
+top: -1px;
+padding-left: 0px;
+font-size: 22px;
+right: 17px;
 }
 
 i.verify::after{
@@ -199,6 +208,9 @@ i.close::after{
   display: flex;
 }
 
+#panStyle {
+  width: 123%;
+}
 
 #title {
   display: inline;
@@ -468,11 +480,25 @@ top: 40px;
 
 .form-group {
   position: relative;
-top: 92px;
+top: 74px;
 width: 508px;
-display: block;
 margin: auto;
 padding: 1em;
+display: block;
+left: 10px;
+}
+
+.sendOTP {
+  background: url('./img/sell.png');
+  /* background-color: #4600b2; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  z-index: 3;
+  top: 0px;
+  left:0px;
+  width: 100vw;
+  height: 100vh;
 }
 
 #panInput {
@@ -489,12 +515,16 @@ padding: 1em;
 
 .box{
   position: relative;
-width: 342px;
-height: 411px;
-background: linear-gradient(189.25deg, #A394FF 6.26%, rgba(255, 255, 255, 0.94) 62.54%);
+width: 300px;
+height: 311px;
+/* background: linear-gradient(189.25deg, #A394FF 6.26%, rgba(255, 255, 255, 0.94) 62.54%); */
+/* background: linear-gradient(0deg, rgba(45,12,161,0.9037815809917717) 0%, rgba(24,0,101,0.7693277994791666) 50%, rgba(62,48,99,0.8505602924763656) 100%); */
+background: linear-gradient(180deg, rgba(126, 110, 183, 0.71) 0%, rgba(73, 33, 198, 0.77) 80%, rgba(83, 36, 213, 0.85) 100%);
+
 box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.15);
-border-radius: 35px;
-margin: 4em;
+border-radius: 20px;
+margin: 3em;
+top: 92px;
 }
 
 .Cards {
@@ -503,9 +533,17 @@ margin: 4em;
     position: relative;
     display: flex;
     margin: auto;
-    top: 146px;
+    top: 246px;
     flex-wrap: wrap;
     overflow-y: scroll;
+    background: url('./img/sell.png');
+  /* background-color: #4600b2; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  z-index: 3;
+  top: 0px;
+  left:0px;
 }
 
 .CardGov {
@@ -514,11 +552,12 @@ margin: 4em;
   position: relative;
   display: flex;
   margin: auto;
-  top: 146px;
+  top: 0px;
 }
 
 .contentBox {
-  width: 342px;
+  width: 290px;
+  left: 5px;
 position: relative;
 top: 24px;
 overflow: scroll;
@@ -531,9 +570,10 @@ overflow-wrap: anywhere;
 }
 
 .contentBoxGov {
-  width: 342px;
+  width: 290px;
+  left: 5px;
 position: relative;
-top: 201px;
+top: 21px;
 overflow: scroll;
 height: 155px;
 color: black;
@@ -544,18 +584,31 @@ overflow-wrap: anywhere;
 
 .titleContent {
   position: relative;
-  top: 77px;
-  color: black;
-  font-weight: 633;
-  font-size: 22px;
+top: 22px;
+color: #b27eff;
+font-weight: 633;
+font-size: 31px;
+}
+
+#pdesc {
+  width: 373px;
+  left: 35px;
+position: relative;
+height: 157px;
+background: none;
+border: 2px solid #7439bb;
+color: white;
+font-size: 18px;
+margin-bottom: 3px;
+text-align: center;
 }
 
 .titleContentGov {
   position: relative;
-  top: 208px;
-  color: black;
+  top: 20px;
+  color: #b27eff;
   font-weight: 633;
-  font-size: 22px;
+  font-size: 31px;
 }
 
 .ipfsLink {
@@ -564,7 +617,7 @@ overflow-wrap: anywhere;
 
 #OTPButton {
   position: relative;
-  top: 280px;
+  top: -30px;
   height: 45px;
   width: 139px;
   font-size: 22px;
@@ -587,17 +640,17 @@ overflow-wrap: anywhere;
 
 #smallText {
   position: relative;
-width: 715px;
+width: 757px;
 height: 36px;
-left: 26px;
-top: 52px;
-font-family: 'Outfit';
-font-style: normal;
-font-weight: 400;
-font-size: 20px;
-line-height: 16px;
-color: #575555;
-margin: auto;
+left: 0px;
+top: 23px;
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 16px;
+  color: #fff;
+  margin: auto;
 }
 
 .verifyBox {
@@ -613,16 +666,46 @@ border-radius: 8px;
 margin: 10px;
 }
 
-#box1 {
-  width: 1246px;
-height: 550px;
-color: white;
-background-color: whitesmoke;
-margin: auto;
+.box1 {
+  position: relative;
+width: 779px;
+height: 430px;
+/* background: linear-gradient(189.25deg, #A394FF 6.26%, rgba(255, 255, 255, 0.94) 62.54%); */
+/* background: linear-gradient(0deg, rgba(45,12,161,0.9037815809917717) 0%, rgba(24,0,101,0.7693277994791666) 50%, rgba(62,48,99,0.8505602924763656) 100%); */
+background: linear-gradient(180deg, rgba(126, 110, 183, 0.71) 0%, rgba(73, 33, 198, 0.77) 80%, rgba(83, 36, 213, 0.85) 100%);
+box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.15);
+border-radius: 20px;
+margin: 3em;
+top: 142px;
 display: block;
-top: 200px;
-position: relative;
-border-radius: 33px;
+margin: auto;
+}
+
+.box2 {
+  position: relative;
+width: 300px;
+height: 311px;
+/* background: linear-gradient(189.25deg, #A394FF 6.26%, rgba(255, 255, 255, 0.94) 62.54%); */
+/* background: linear-gradient(0deg, rgba(45,12,161,0.9037815809917717) 0%, rgba(24,0,101,0.7693277994791666) 50%, rgba(62,48,99,0.8505602924763656) 100%); */
+background: linear-gradient(180deg, rgba(126, 110, 183, 0.71) 0%, rgba(73, 33, 198, 0.77) 80%, rgba(83, 36, 213, 0.85) 100%);
+
+box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.15);
+border-radius: 20px;
+margin: 3em;
+top: 10px;
+}
+
+.OTPCard {
+  background: url('./img/sell.png');
+  /* background-color: #4600b2; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  z-index: 3;
+  top: 0px;
+  left:0px;
+  width: 100vw;
+height: 100vh;
 }
 
 .boxes {

@@ -3,15 +3,12 @@ import { Link } from 'react-router-dom';
 import { Form, Button, Card, Message } from 'semantic-ui-react';
 import AuthValidation from '../utils/AuthValidation';
 import "../App.css";
-import Property from '../img/Property.jpg';
 
 class SignIn extends Component {
     state = {
         username: '',
         password: '',
         digicode: '',
-        alertMessage: '',
-        status: '',
         loggedIn: false
     }
 
@@ -31,35 +28,14 @@ class SignIn extends Component {
 
             let usernameToSend = username;
 
-            //===
+            
             if (password.length < 8) {
-                this.setState({
-                    alertMessage: "Password must be of at least 8 characters",
-                    status: 'failed',
-                    password: '',
-                    digicode: '',
-                });
-                setTimeout(() => {
-                    this.setState({
-                      alertMessage: null,
-                      status: ''
-                    })
-                  }, 1800);
+                this.props.alertFunc("danger", "Password must be of at least 8 characters")
                 return;
             } else {
 
             } if (digicode.length !== 6) {
-                this.setState({
-                    alertMessage: "DigiCode must be of 6 digits",
-                    status: 'failed',
-                    digicode: ''
-                });
-                setTimeout(() => {
-                    this.setState({
-                      alertMessage: null,
-                      status: ''
-                    })
-                  }, 1800);
+                this.props.alertFunc("danger", "DigiCode must be of 6 digits")
                 return
             } else {
                 this.props.setStateData('load', true);
@@ -68,19 +44,7 @@ class SignIn extends Component {
                 let userAddress = await this.props.contract.methods.getUserAddress()
                     .call({ from: this.props.account });
                 if (userAddress === '0x0000000000000000000000000000000000000000') {
-                    this.setState({
-                        alertMessage: 'Account does not Exists!',
-                        status: 'failed',
-                        username: '',
-                        password: '',
-                        digicode: '',
-                    });
-                    setTimeout(() => {
-                        this.setState({
-                          alertMessage: null,
-                          status: ''
-                        })
-                      }, 1800);
+                    this.props.alertFunc("danger", "Account does not Exists!")
                     this.props.setStateData('load', false);
                     this.props.setStateData('disable', false);
                     this.props.makeBlur(0);
@@ -96,45 +60,19 @@ class SignIn extends Component {
                         );
 
                     if (!validated) {
-                        this.setState({
-                            alertMessage: 'Incorrect Credentials',
-                            status: 'failed',
-                            username: '',
-                            password: '',
-                            digicode: '',
-                        });
-                        setTimeout(() => {
-                            this.setState({
-                              alertMessage: null,
-                              status: ''
-                            })
-                          }, 1800);
+                        this.props.alertFunc("danger", "Incorrect Credentials")
                         this.props.setStateData('load', false);
                         this.props.makeBlur(0);
                         this.props.setStateData('disable', false);
                         return
                     } else {
-                        this.setState({
-                            username: '',
-                            password: '',
-                            digicode: '',
-                            status: 'success',
-                            alertMessage: "Sign In successful",
-                            loggedIn: true
-                        });
-                        setTimeout(() => {
-                            this.setState({
-                              alertMessage: null,
-                              status: ''
-                            })
-                          }, 1800);
-
+                        this.props.alertFunc("success", "Sign In Successful")
                         this.props.setStateData('load', false);
                         this.props.makeBlur(0);
                         this.props.setStateData('disable', false);
                         this.props.userSignedIn(
-                            this.state.loggedIn,
-                            usernameToSend
+                            true,
+                            this.state.username
                         );
                         this.setState({
                             username: '',
@@ -143,7 +81,7 @@ class SignIn extends Component {
                         })
                         this.props.setNavBarWidth();
                         // this.props.navigator('/sell', true);
-                        this.props.navigator("/api/allot/property", true);
+                        this.props.navigator("/sell", true);
                         return;
                     }
                 }
@@ -155,16 +93,16 @@ class SignIn extends Component {
         return (
             <div className="sign-up">
                 <div>
-                {/* <img src={Property} id='property'></img> */}
                 </div>
                 <div className='signup-form'>
-                <p style={{paddingBottom: '2px'}}>Sign in to your account</p>
+                <p style={{paddingBottom: '2px', width: '445px', left: '19px', position: 'relative'}}>Sign In to your Account</p>
                                     <input
                                         required
                                         type='text'
                                         placeholder='Username'
                                         value={this.state.username}
                                         autoComplete="username"
+                                        className='adminLogin'
                                         onChange={e => this.setState({ username: e.target.value })}
                                     />
                                 <label for="password" className='labelPassword'>
@@ -184,6 +122,7 @@ class SignIn extends Component {
                                         value={this.state.password}
                                         id='password'
                                         autoComplete="current-password"
+                                        className='adminLogin'
                                         onChange={e => this.setState({ password: e.target.value })}
                                         minLength={8}
                                     />
@@ -204,13 +143,14 @@ class SignIn extends Component {
                                         value={this.state.digicode}
                                         id='code'
                                         autoComplete="digicode"
+                                        className='adminLogin'
                                         onChange={e => this.setState({ digicode: e.target.value })}
                                         length={8}
                                     />
-                                    <Button type='submit' primary fluid size='large' onClick={this.onSignIn} disabled={this.props.state.disable}>
+                                    <Button type='submit' primary fluid size='large' onClick={this.onSignIn} disabled={this.props.state.disable} style={{position: 'relative', left: '47px'}}>
                                         Sign in
                                     </Button>
-                            <div className="signin-onUp">
+                            <div className="signin-onUp adminLogin">
                                 Don't have an account? <Link to='/sign-up'>Sign up</Link>
                             </div>
                 </div>

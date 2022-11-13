@@ -3,15 +3,7 @@ require("@nomiclabs/hardhat-ethers");
 require("@nomiclabs/hardhat-etherscan");
 require("dotenv").config();
 
-// task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
-//   const accounts = await hre.ethers.getSigners();
-
-//   for (const account of accounts) {
-//     console.log(account.address);
-//   }
-// })
-
-const privateKey =  "893864dba4ac21d7cd9897a6ab4db37bca72ddba7bdc58026499537ae467a3a1"
+const privateKey =  "561edf0f8f845e7664b801acb037eb6a823e45122a7bb6b67182c101ee5ca11d"
 const api_key = "XC18M4KYBNPKJBD3X1JSKHDZGQN98VUQBX"
 
 module.exports = {

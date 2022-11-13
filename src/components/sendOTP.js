@@ -107,6 +107,7 @@ export default class sendOTP extends Component {
     }
     return (
         <>
+        <div className='sendOTP'>
         <form onSubmit={sendOTP}>
   <div class="form-group">
     <input type="username" class="form-control" id="panInput" aria-describedby="emailHelp" placeholder="Enter PAN" required minLength={10} maxLength={10}/>
@@ -117,19 +118,19 @@ export default class sendOTP extends Component {
   {this.state.searchActive ?
   <>
   <div className='CardGov'>
-    <div className='box'>
+    <div className='box2'>
     <p className='titleContentGov'>Property Description</p>
       <div className='contentBoxGov'>
         <p>{this.state.property}</p>
       </div>
     </div>
-    <div className='box'>
+    <div className='box2'>
     <p className='titleContentGov'>Previous Registry Papers</p>
     <div className='contentBoxGov'>
     <p className='ipfsLink'><a href={this.state.link1} target='_black'>{this.state.link1}</a></p>
     </div>
     </div>
-    <div className='box'>
+    <div className='box2'>
     <p className='titleContentGov'>New Registry Papers</p>
     <div className='contentBoxGov'>
     <p className='ipfsLink'><a href={this.state.link2} target='_black'>{this.state.link2}</a></p>
@@ -141,6 +142,7 @@ export default class sendOTP extends Component {
   : undefined
   }
   </form>
+  </div>
   </>
   )
 }

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Form, Button, Card, Message } from 'semantic-ui-react';
 import '../App.css';
 import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js'
-// import { Web3Storage } from 'web3.storage'
 require("dotenv").config();
 
 export default class SellContinue extends Component {
@@ -84,22 +83,7 @@ else
     return (
         <div className="sign-up">
         <div className='signup-form'>
-        <p style={{paddingBottom: '2px'}}>Property Details</p>
-            <Card fluid centered>
-                <Card.Content>
-                    <Form size='large'>
-                        {
-                            this.state.alertMessage !== '' && this.state.status === 'failed' ?
-                                <Message negative>
-                                    {this.state.alertMessage}
-                                </Message> :
-                                this.state.alertMessage !== '' && this.state.status === 'success' ?
-                                    <Message positive>
-                                        {this.state.alertMessage}
-                                    </Message> :
-                                    console.log('')
-                        }
-                        <Form.Field>
+        <p style={{paddingBottom: '2px', left: '38px', position: 'relative'}}>Property Details</p>
                             <input
                                 required
                                 type='text'
@@ -111,11 +95,9 @@ else
                                 maxLength={10}
                                 value={this.props.state.pan}
                                 autoComplete="off"
+                                className='adminLogin'
                                 onChange={e => this.props.setStateData('pan', e.target.value)}
                             />
-                            <label for='pdesc'>Property Description</label>
-                        </Form.Field>
-                        <Form.Field>
                             <textarea
                                 required
                                 type='text'
@@ -123,11 +105,9 @@ else
                                 value={this.state.propertyDesc}
                                 autoComplete="off"
                                 id='pdesc'
+                                className='adminLogin'
                                 onChange={e => this.setState({ propertyDesc: e.target.value })}
                             />
-                            <label for='pdesc'>Property Description</label>
-                        </Form.Field>
-                        <Form.Field>
                             <input
                                 required
                                 type='url'
@@ -135,30 +115,21 @@ else
                                 value={this.state.oldipfslink}
                                 autoComplete="off"
                                 id='urlID'
+                                className='adminLogin'
                                 onChange={e => this.props.alertFunc("danger", "Can't Change the link for Old Registry Papers")}
                             />
-                            <label for='urlID'>Old Registry Papers</label>
-                        </Form.Field>
-                        <Form.Field>
                             <input
                                 required
                                 type='file'
                                 name='Upload'
                                 id='myFiles'
                                 autoComplete="off"
-                                className='hidden'
+                                className='hidden adminLogin'
                                 title='Upload Registry Papers'
                             />
-                            <label for='myFiles'>Upload Registry Papers</label>
-                        </Form.Field>
-                        <Form.Field>
-                            <Button type='submit' primary fluid size='large' onClick={this.onSignIn}>
+                            <Button type='submit' primary fluid size='large' onClick={this.onSignIn} style={{position: 'relative', left: '47px'}}>
                                 Send for Verification
                             </Button>
-                        </Form.Field>
-                    </Form>
-                </Card.Content>
-            </Card>
         </div>
     </div>
     )
