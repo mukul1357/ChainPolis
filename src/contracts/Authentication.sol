@@ -175,7 +175,11 @@ contract Authentication {
         the_property[_new_owner_address].push(instance_of_property(index, _property_location, _oldipfslink, _newipfslink, property_owners));
         property_count[_new_owner_address]++;
 
-        delete the_property[msg.sender][LocalPropertyIndex[index]];
+        for(uint256 i=LocalPropertyIndex[index];i<property_count[msg.sender]-1;i++) {
+            the_property[msg.sender][i] = the_property[msg.sender][i+1];
+        }
+        the_property[msg.sender].pop();
+        // delete the_property[msg.sender][LocalPropertyIndex[index]];
 
         GlobalPropertyIndex[index] = _new_owner_address;
         LocalPropertyIndex[index] = property_len;
